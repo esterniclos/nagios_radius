@@ -1,7 +1,8 @@
 #!/bin/bash
 
 #
-# Downloads file from URL and compares to original.
+# Authenticates radius user in a NPS Windows Server 
+# Needs freeradius-utils
 #
 
 service="RADIUS"
