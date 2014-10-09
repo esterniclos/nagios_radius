@@ -1,12 +1,11 @@
 nagios_radius
 =============
 
-Nagios check for Radius NPS Windows 
+Nagios check for Radius NPS Windows or IAS 
 
  Authenticates radius user in a NPS Windows Server 
  
- 
- Nagios server has to be configured in NPS as a radius client
+  Nagios server has to be configured in NPS as a radius client
  
  Needs freeradius-utils
  
