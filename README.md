@@ -9,6 +9,13 @@ Nagios check for Radius NPS Windows
  Nagios server has to be configured in NPS as a radius client
  
  Needs freeradius-utils
+ 
+###########################
+# Firewall configuration
+###########################
+
+Port 1812  Nagios - Radius Server
+ 
 
 
 ###########################
