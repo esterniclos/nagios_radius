@@ -16,18 +16,21 @@ UNKNOWN=3
 
 # print usage information and exit
 print_usage(){
-        echo -e "\n" \
-	            "usage: $0 -u user -p password -s secret \n" \
-	            "\n" \
-	            "-u AD USER\n" \
-  	    "-p password\n" \
-	    "-s radius secret\n" \	        
-	            "\n" && exit 1
-	}
+    echo -e "\n" \
+        "usage: $0 -h ipv4 -u user -p password -s secret \n" \
+        "\n" \
+        "-h host ipv4 \n" \
+        "-u AD USER\n" \
+        "-p password\n" \
+        "-s radius secret\n" \
+        "\n" && exit 1
+}
 
 # Loop through $@ to find flags
-while getopts "u:p:s:" FLAG; do
-        case "${FLAG}" in
+while getopts "u:p:s:h:" FLAG; do
+    case "${FLAG}" in
+        h) # host ip
+           HOST="${OPTARG}" ;;
         u) # url to download
             USER="${OPTARG}" ;;
         p) # file to test
@@ -35,12 +38,13 @@ while getopts "u:p:s:" FLAG; do
         s) # secret
             SECRET="${OPTARG}" ;;
         [:?]) # Print usage information
-	    print_usage;;
-        esac
+            print_usage;;
+    esac
 done
 
-# Debug:
-#printf "url=%s           original_file=%s \n" $URL $ORIGINAL_FILE 
+
+# check args
+
 
 [[ ! $USER ]] && print_usage && exit $UNKNOWN
 [[ ! $PASSWORD ]] && print_usage && exit $UNKNOWN
@@ -50,9 +54,7 @@ done
 # Set status & return code:
 status="OK" && return_code=$OK
 
-
-
-check_result=$(echo "User-Name=$USER,User-Password=$PASSWORD" | radclient -4 10.57.224.18 auth $SECRET )
+check_result=$(echo "User-Name=$USER,User-Password=$PASSWORD" | radclient -4 $HOST auth $SECRET )
 
 access=$(echo $check_result | grep -i Full-Access | wc -l)
 
