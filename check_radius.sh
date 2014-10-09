@@ -56,7 +56,10 @@ status="OK" && return_code=$OK
 
 check_result=$(echo "User-Name=$USER,User-Password=$PASSWORD" | radclient -4 $HOST auth $SECRET )
 
-access=$(echo $check_result | grep -i Full-Access | wc -l)
+# Just for NPS 
+#access=$(echo $check_result | grep -i Full-Access | wc -l)
+# NPS and IAS message
+access=$(echo $check_result | grep -i Framed-User | wc -l)
 
 [[ $access -ne 1 ]]  && status="CRITICAL" && return_code=$CRITICAL
 
